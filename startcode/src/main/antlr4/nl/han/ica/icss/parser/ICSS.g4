@@ -8,14 +8,12 @@ ELSE: 'else';
 BOX_BRACKET_OPEN: '[';
 BOX_BRACKET_CLOSE: ']';
 
-
 //Literals
 TRUE: 'TRUE';
 FALSE: 'FALSE';
 PIXELSIZE: [0-9]+ 'px';
 PERCENTAGE: [0-9]+ '%';
 SCALAR: [0-9]+;
-
 
 //Color value takes precedence over id idents
 COLOR: '#' [0-9a-f] [0-9a-f] [0-9a-f] [0-9a-f] [0-9a-f] [0-9a-f];
@@ -45,5 +43,20 @@ ASSIGNMENT_OPERATOR: ':=';
 
 
 //--- PARSER: ---
-stylesheet: EOF;
+stylesheet: (variableAssignment | styleRule)* | EOF;
+
+//literals
+literal: TRUE | FALSE | PIXELSIZE | PERCENTAGE | SCALAR | COLOR;
+
+//variables
+variableAssignment: variableReference ASSIGNMENT_OPERATOR literal SEMICOLON;
+variableReference: CAPITAL_IDENT;
+
+//style rule
+styleRule: selector OPEN_BRACE (decleration) CLOSE_BRACE;
+decleration: selector COLON (literal | variableReference) SEMICOLON;
+selector: LOWER_IDENT | ID_IDENT | CLASS_IDENT;
+
+
+
 
