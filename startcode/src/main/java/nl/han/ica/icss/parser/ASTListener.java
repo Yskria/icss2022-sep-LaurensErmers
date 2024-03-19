@@ -3,6 +3,7 @@ package nl.han.ica.icss.parser;
 import java.util.Stack;
 
 
+import nl.han.ica.datastructures.HANStack;
 import nl.han.ica.datastructures.IHANStack;
 import nl.han.ica.icss.ast.*;
 import nl.han.ica.icss.ast.literals.*;
@@ -28,6 +29,7 @@ public class ASTListener extends ICSSBaseListener {
 		ast = new AST();
 		currentContainer = new HANStack<>();
 	}
+
     public AST getAST() {
         return ast;
     }
@@ -41,7 +43,17 @@ public class ASTListener extends ICSSBaseListener {
 
     @Override
     public void exitStylesheet(ICSSParser.StylesheetContext ctx) {
+        currentContainer.pop();
+    }
 
+    @Override
+    public void enterStyleRule(ICSSParser.StyleRuleContext ctx) {
+        super.enterStyleRule(ctx);
+    }
+
+    @Override
+    public void exitStyleRule(ICSSParser.StyleRuleContext ctx) {
+        super.exitStyleRule(ctx);
     }
 
     @Override
@@ -72,16 +84,6 @@ public class ASTListener extends ICSSBaseListener {
     @Override
     public void exitVariableReference(ICSSParser.VariableReferenceContext ctx) {
         super.exitVariableReference(ctx);
-    }
-
-    @Override
-    public void enterStyleRule(ICSSParser.StyleRuleContext ctx) {
-        super.enterStyleRule(ctx);
-    }
-
-    @Override
-    public void exitStyleRule(ICSSParser.StyleRuleContext ctx) {
-        super.exitStyleRule(ctx);
     }
 
     @Override
