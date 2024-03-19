@@ -53,9 +53,14 @@ variableAssignment: variableReference ASSIGNMENT_OPERATOR literal SEMICOLON;
 variableReference: CAPITAL_IDENT;
 
 //style rule
-styleRule: selector OPEN_BRACE (decleration) CLOSE_BRACE;
-decleration: selector COLON (literal | variableReference) SEMICOLON;
+styleRule: selector OPEN_BRACE decleration+ CLOSE_BRACE;
+decleration: toDeclare | ifClause;
+toDeclare: selector COLON (literal | variableReference | operator)+ SEMICOLON;
+operator: COLON | PLUS | MIN | MUL;
 selector: LOWER_IDENT | ID_IDENT | CLASS_IDENT;
+ifClause: IF BOX_BRACKET_OPEN ... BOX_BRACKET_CLOSE OPEN_BRACE CLOSE_BRACE;
+elseClause: ELSE ... OPEN_BRACE ... CLOSE_BRACE;
+
 
 
 
