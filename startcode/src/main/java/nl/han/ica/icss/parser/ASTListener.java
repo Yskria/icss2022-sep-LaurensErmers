@@ -1,15 +1,12 @@
 package nl.han.ica.icss.parser;
 
+import java.lang.runtime.SwitchBootstraps;
 import java.util.Stack;
 
 
 import nl.han.ica.datastructures.HANStack;
 import nl.han.ica.datastructures.IHANStack;
 import nl.han.ica.icss.ast.*;
-import nl.han.ica.icss.ast.literals.*;
-import nl.han.ica.icss.ast.operations.AddOperation;
-import nl.han.ica.icss.ast.operations.MultiplyOperation;
-import nl.han.ica.icss.ast.operations.SubtractOperation;
 import nl.han.ica.icss.ast.selectors.ClassSelector;
 import nl.han.ica.icss.ast.selectors.IdSelector;
 import nl.han.ica.icss.ast.selectors.TagSelector;
@@ -21,6 +18,8 @@ public class ASTListener extends ICSSBaseListener {
 	
 	//Accumulator attributes:
 	private AST ast;
+    final public char hash = '#';
+    final public char dot = '.';
 
 	//Use this to keep track of the parent nodes when recursively traversing the ast
 	private IHANStack<ASTNode> currentContainer;
@@ -36,9 +35,9 @@ public class ASTListener extends ICSSBaseListener {
 
     @Override
     public void enterStylesheet(ICSSParser.StylesheetContext ctx){
-        Stylesheet stylesheet = new Stylesheet();
+        ASTNode stylesheet = new Stylesheet();
         currentContainer.push(stylesheet);
-        ast.setRoot(stylesheet);
+        ast.setRoot((Stylesheet) currentContainer.pop());
     }
 
     @Override
@@ -55,11 +54,13 @@ public class ASTListener extends ICSSBaseListener {
 
     @Override
     public void exitStyleRule(ICSSParser.StyleRuleContext ctx) {
-        currentContainer.pop();
+        ASTNode stylerule = currentContainer.pop();
+        currentContainer.peek().addChild(stylerule);
     }
 
     @Override
     public void enterLiteral(ICSSParser.LiteralContext ctx) {
+
     }
 
     @Override
@@ -89,17 +90,29 @@ public class ASTListener extends ICSSBaseListener {
 
     @Override
     public void enterDecleration(ICSSParser.DeclerationContext ctx) {
-        super.enterDecleration(ctx);
+        ASTNode declaration = new Declaration();
+        currentContainer.push(declaration);
     }
 
     @Override
     public void exitDecleration(ICSSParser.DeclerationContext ctx) {
-        currentContainer.pop();
+        ASTNode declaration = currentContainer.pop();
+        currentContainer.peek().addChild(declaration);
     }
 
     @Override
     public void enterSelector(ICSSParser.SelectorContext ctx) {
-        
+        //Retrieve first character of text representation corresponding to the node
+        char selectorKind = ctx.getChild(0).getText().charAt(0);
+        Selector selector;
+        //Switchcase to find out which selector to use
+        switch(selectorKind){
+            case dot: selector = new IdSelector(Character.toString(selectorKind));
+                break;
+            case hash: selector = new ClassSelector(Character.toString(selectorKind));
+                break;
+            default: selector = new TagSelector(Character.toString(selectorKind));
+        }
     }
 
     @Override
