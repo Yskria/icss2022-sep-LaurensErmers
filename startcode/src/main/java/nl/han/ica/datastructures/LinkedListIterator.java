@@ -1,8 +1,8 @@
 package nl.han.ica.datastructures;
 
-public class LinkedListIterator<T> {
-    ListNode<T> current;
-    LinkedListIterator(ListNode<T> currentNode){
+public class LinkedListIterator<ASTNode> {
+    ListNode<ASTNode> current;
+    LinkedListIterator(ListNode<ASTNode> currentNode){
         current = currentNode;
     }
 
@@ -10,7 +10,7 @@ public class LinkedListIterator<T> {
         return current != null;
     }
 
-    public T retrieve(){
+    public ASTNode retrieve(){
         return isValid() ? current.value : null;
     }
 

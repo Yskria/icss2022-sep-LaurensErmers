@@ -1,9 +1,5 @@
 package nl.han.ica.icss.parser;
 
-import java.lang.runtime.SwitchBootstraps;
-import java.util.Stack;
-
-
 import nl.han.ica.datastructures.HANStack;
 import nl.han.ica.datastructures.IHANStack;
 import nl.han.ica.icss.ast.*;
@@ -17,7 +13,7 @@ import nl.han.ica.icss.ast.selectors.TagSelector;
 public class ASTListener extends ICSSBaseListener {
 	
 	//Accumulator attributes:
-	private AST ast;
+	private final AST ast;
     final public char hash = '#';
     final public char dot = '.';
 
@@ -37,17 +33,16 @@ public class ASTListener extends ICSSBaseListener {
     public void enterStylesheet(ICSSParser.StylesheetContext ctx){
         ASTNode stylesheet = new Stylesheet();
         currentContainer.push(stylesheet);
-        ast.setRoot((Stylesheet) currentContainer.pop());
     }
 
     @Override
     public void exitStylesheet(ICSSParser.StylesheetContext ctx) {
-        currentContainer.pop();
+        ast.setRoot((Stylesheet) currentContainer.pop());
     }
 
     @Override
     public void enterStyleRule(ICSSParser.StyleRuleContext ctx) {
-        Stylerule styleRule = new Stylerule();
+        ASTNode styleRule = new Stylerule();
         ast.root.body.add(styleRule);
         currentContainer.push(styleRule);
     }
@@ -59,28 +54,21 @@ public class ASTListener extends ICSSBaseListener {
     }
 
     @Override
-    public void enterLiteral(ICSSParser.LiteralContext ctx) {
-
-    }
-
-    @Override
-    public void exitLiteral(ICSSParser.LiteralContext ctx) {
-        currentContainer.pop();
-    }
-
-    @Override
     public void enterVariableAssignment(ICSSParser.VariableAssignmentContext ctx) {
-        super.enterVariableAssignment(ctx);
+        ASTNode variableAssignment = new VariableAssignment();
+        currentContainer.push(variableAssignment);
     }
 
     @Override
     public void exitVariableAssignment(ICSSParser.VariableAssignmentContext ctx) {
-        currentContainer.pop();
+        ASTNode variableAssignment = currentContainer.pop();
+        currentContainer.peek().addChild(variableAssignment);
     }
 
     @Override
     public void enterVariableReference(ICSSParser.VariableReferenceContext ctx) {
-        super.enterVariableReference(ctx);
+        ASTNode variableReference = new VariableReference(ctx.getText());
+        currentContainer.peek().addChild(variableReference);
     }
 
     @Override
@@ -100,11 +88,22 @@ public class ASTListener extends ICSSBaseListener {
         currentContainer.peek().addChild(declaration);
     }
 
+//    @Override
+//    public void enterToDeclare(ICSSParser.ToDeclareContext ctx) {
+//        ASTNode toDeclare = new ICSSParser.ToDeclareContext();
+//        currentContainer.push(toDeclare);
+//    }
+//
+//    @Override
+//    public void exitToDeclare(ICSSParser.ToDeclareContext ctx) {
+//        super.exitToDeclare(ctx);
+//    }
+
     @Override
     public void enterSelector(ICSSParser.SelectorContext ctx) {
         //Retrieve first character of text representation corresponding to the node
         char selectorKind = ctx.getChild(0).getText().charAt(0);
-        Selector selector;
+        ASTNode selector;
         //Switchcase to find out which selector to use
         switch(selectorKind){
             case dot: selector = new IdSelector(Character.toString(selectorKind));
@@ -119,4 +118,30 @@ public class ASTListener extends ICSSBaseListener {
     public void exitSelector(ICSSParser.SelectorContext ctx) {
         currentContainer.pop();
     }
+
+//    @Override
+//    public void enterBoolLiteral(ICSSParser.LiteralContext ctx) {
+//        super.enterBoolLiteral(ctx);
+//    }
+//
+//    @Override
+//    public void enterColorLiteral(ICSSParser.LiteralContext ctx) {
+//        super.enterColorLiteral(ctx);
+//    }
+//
+//    @Override
+//    public void enterPercentageLiteral(ICSSParser.LiteralContext ctx) {
+//        super.enterPercentageLiteral(ctx);
+//    }
+//
+//    @Override
+//    public void enterPixelLiteral(ICSSParser.LiteralContext ctx) {
+//        super.enterPixelLiteral(ctx);
+//    }
+//
+//
+//    @Override
+//    public void enterScalarLiteral(ICSSParser.LiteralContext ctx) {
+//        super.enterScalarLiteral(ctx);
+//    }
 }

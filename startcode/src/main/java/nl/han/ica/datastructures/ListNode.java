@@ -13,10 +13,6 @@ public class ListNode<T> {
         this.value = value;
     }
 
-    public ListNode(ListNode nextValue){
-        this.nextValue = nextValue;
-    }
-
     public ListNode(){
     }
 }

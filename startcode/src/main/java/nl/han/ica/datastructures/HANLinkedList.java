@@ -1,15 +1,15 @@
 package nl.han.ica.datastructures;
 
-public class HANLinkedList<T> implements IHANLinkedList<T>{
+public class HANLinkedList<ASTNode> implements IHANLinkedList<ASTNode>{
 
-    private ListNode<T> beginNode = null;
+    private ListNode<ASTNode> beginNode = null;
 
     @Override
-    public void addFirst(T value) {
+    public void addFirst(ASTNode value) {
         if(beginNode == null){
-            beginNode = new ListNode<>((T) value);
+            beginNode = new ListNode<>((ASTNode) value);
         } else {
-            ListNode<T> newTreeNode = new ListNode<>();
+            ListNode<ASTNode> newTreeNode = new ListNode<>();
             newTreeNode.value = value;
             beginNode = newTreeNode;
         }
@@ -21,8 +21,8 @@ public class HANLinkedList<T> implements IHANLinkedList<T>{
     }
 
     @Override
-    public void insert(int index, T value) {
-        ListNode<T> addNode = new ListNode<T>();
+    public void insert(int index, ASTNode value) {
+        ListNode<ASTNode> addNode = new ListNode<ASTNode>();
         if(beginNode.value == null){
             System.out.println("index node cannot be null");
         } else {
@@ -32,24 +32,24 @@ public class HANLinkedList<T> implements IHANLinkedList<T>{
 
     @Override
     public void delete(int pos) {
-        LinkedListIterator<T> p = findPreviousNode(pos);
+        LinkedListIterator<ASTNode> p = findPreviousNode(pos);
         if(p.current.nextValue != null){
             p.current.nextValue = p.current.nextValue.nextValue;
         }
     }
 
-    public LinkedListIterator<T> findPreviousNode(int pos){
-        ListNode<T> itr = beginNode;
+    public LinkedListIterator<ASTNode> findPreviousNode(int pos){
+        ListNode<ASTNode> itr = beginNode;
 
         while(itr.nextValue != null && itr.nextValue.value.equals(pos)){
             itr = itr.nextValue;
         }
-        return new LinkedListIterator<T>(itr);
+        return new LinkedListIterator<ASTNode>(itr);
     }
 
     @Override
-    public T get(int pos) {
-        ListNode<T> llitr = beginNode.nextValue;
+    public ASTNode get(int pos) {
+        ListNode<ASTNode> llitr = beginNode.nextValue;
 
         while (llitr != null && !llitr.value.equals(pos)){
             llitr = llitr.nextValue;
@@ -63,7 +63,7 @@ public class HANLinkedList<T> implements IHANLinkedList<T>{
     }
 
     @Override
-    public T getFirst() {
+    public ASTNode getFirst() {
         return beginNode.value;
     }
 
