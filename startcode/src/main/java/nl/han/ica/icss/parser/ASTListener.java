@@ -48,22 +48,23 @@ public class ASTListener extends ICSSBaseListener {
 
     @Override
     public void enterStyleRule(ICSSParser.StyleRuleContext ctx) {
-        super.enterStyleRule(ctx);
+        Stylerule styleRule = new Stylerule();
+        ast.root.body.add(styleRule);
+        currentContainer.push(styleRule);
     }
 
     @Override
     public void exitStyleRule(ICSSParser.StyleRuleContext ctx) {
-        super.exitStyleRule(ctx);
+        currentContainer.pop();
     }
 
     @Override
     public void enterLiteral(ICSSParser.LiteralContext ctx) {
-        super.enterLiteral(ctx);
     }
 
     @Override
     public void exitLiteral(ICSSParser.LiteralContext ctx) {
-        super.exitLiteral(ctx);
+        currentContainer.pop();
     }
 
     @Override
@@ -73,7 +74,7 @@ public class ASTListener extends ICSSBaseListener {
 
     @Override
     public void exitVariableAssignment(ICSSParser.VariableAssignmentContext ctx) {
-        super.exitVariableAssignment(ctx);
+        currentContainer.pop();
     }
 
     @Override
@@ -83,7 +84,7 @@ public class ASTListener extends ICSSBaseListener {
 
     @Override
     public void exitVariableReference(ICSSParser.VariableReferenceContext ctx) {
-        super.exitVariableReference(ctx);
+        currentContainer.pop();
     }
 
     @Override
@@ -93,16 +94,16 @@ public class ASTListener extends ICSSBaseListener {
 
     @Override
     public void exitDecleration(ICSSParser.DeclerationContext ctx) {
-        super.exitDecleration(ctx);
+        currentContainer.pop();
     }
 
     @Override
     public void enterSelector(ICSSParser.SelectorContext ctx) {
-        super.enterSelector(ctx);
+        
     }
 
     @Override
     public void exitSelector(ICSSParser.SelectorContext ctx) {
-        super.exitSelector(ctx);
+        currentContainer.pop();
     }
 }

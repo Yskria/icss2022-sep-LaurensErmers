@@ -25,7 +25,6 @@ public class HANLinkedList<T> implements IHANLinkedList<T>{
         ListNode<T> addNode = new ListNode<T>();
         if(beginNode.value == null){
             System.out.println("index node cannot be null");
-            if()
         } else {
             addNode.value = value;
         }
