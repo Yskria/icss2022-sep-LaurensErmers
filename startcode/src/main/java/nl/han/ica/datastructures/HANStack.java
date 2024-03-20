@@ -1,23 +1,23 @@
 package nl.han.ica.datastructures;
 
-public class HANStack<T> implements IHANStack{
+public class HANStack<T> implements IHANStack<T>{
 
     ListNode<T> topOfStack;
 
     @Override
-    public void push(Object value) {
-    topOfStack = new ListNode<T>((T) value, topOfStack);
+    public void push(T value) {
+    topOfStack = new ListNode<T>(value, topOfStack);
     }
 
     @Override
-    public Object pop() {
+    public T pop() {
         T popItem = topOfStack.value;
         topOfStack = topOfStack.nextValue;
         return popItem;
     }
 
     @Override
-    public Object peek() {
+    public T peek() {
         return topOfStack.value;
     }
 }
