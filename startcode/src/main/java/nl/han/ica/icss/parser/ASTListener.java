@@ -43,7 +43,7 @@ public class ASTListener extends ICSSBaseListener {
     @Override
     public void enterStyleRule(ICSSParser.StyleRuleContext ctx) {
         ASTNode styleRule = new Stylerule();
-        ast.root.body.add(styleRule);
+        //ast.root.body.add(styleRule);
         currentContainer.push(styleRule);
     }
 
@@ -77,27 +77,16 @@ public class ASTListener extends ICSSBaseListener {
     }
 
     @Override
-    public void enterDecleration(ICSSParser.DeclerationContext ctx) {
+    public void enterDeclaration(ICSSParser.DeclarationContext ctx) {
         ASTNode declaration = new Declaration();
         currentContainer.push(declaration);
     }
 
     @Override
-    public void exitDecleration(ICSSParser.DeclerationContext ctx) {
+    public void exitDeclaration(ICSSParser.DeclarationContext ctx) {
         ASTNode declaration = currentContainer.pop();
         currentContainer.peek().addChild(declaration);
     }
-
-//    @Override
-//    public void enterToDeclare(ICSSParser.ToDeclareContext ctx) {
-//        ASTNode toDeclare = new ICSSParser.ToDeclareContext();
-//        currentContainer.push(toDeclare);
-//    }
-//
-//    @Override
-//    public void exitToDeclare(ICSSParser.ToDeclareContext ctx) {
-//        super.exitToDeclare(ctx);
-//    }
 
     @Override
     public void enterSelector(ICSSParser.SelectorContext ctx) {
@@ -118,30 +107,4 @@ public class ASTListener extends ICSSBaseListener {
     public void exitSelector(ICSSParser.SelectorContext ctx) {
         currentContainer.pop();
     }
-
-//    @Override
-//    public void enterBoolLiteral(ICSSParser.LiteralContext ctx) {
-//        super.enterBoolLiteral(ctx);
-//    }
-//
-//    @Override
-//    public void enterColorLiteral(ICSSParser.LiteralContext ctx) {
-//        super.enterColorLiteral(ctx);
-//    }
-//
-//    @Override
-//    public void enterPercentageLiteral(ICSSParser.LiteralContext ctx) {
-//        super.enterPercentageLiteral(ctx);
-//    }
-//
-//    @Override
-//    public void enterPixelLiteral(ICSSParser.LiteralContext ctx) {
-//        super.enterPixelLiteral(ctx);
-//    }
-//
-//
-//    @Override
-//    public void enterScalarLiteral(ICSSParser.LiteralContext ctx) {
-//        super.enterScalarLiteral(ctx);
-//    }
 }

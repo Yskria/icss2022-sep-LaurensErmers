@@ -17,6 +17,46 @@ public interface ICSSListener extends ParseTreeListener {
 	 */
 	void exitStylesheet(ICSSParser.StylesheetContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ICSSParser#boolLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolLiteral(ICSSParser.BoolLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ICSSParser#boolLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolLiteral(ICSSParser.BoolLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ICSSParser#colorLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterColorLiteral(ICSSParser.ColorLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ICSSParser#colorLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitColorLiteral(ICSSParser.ColorLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ICSSParser#scalarLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterScalarLiteral(ICSSParser.ScalarLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ICSSParser#scalarLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitScalarLiteral(ICSSParser.ScalarLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ICSSParser#percentageLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterPercentageLiteral(ICSSParser.PercentageLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ICSSParser#percentageLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitPercentageLiteral(ICSSParser.PercentageLiteralContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ICSSParser#literal}.
 	 * @param ctx the parse tree
 	 */
@@ -57,25 +97,15 @@ public interface ICSSListener extends ParseTreeListener {
 	 */
 	void exitStyleRule(ICSSParser.StyleRuleContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ICSSParser#decleration}.
+	 * Enter a parse tree produced by {@link ICSSParser#declaration}.
 	 * @param ctx the parse tree
 	 */
-	void enterDecleration(ICSSParser.DeclerationContext ctx);
+	void enterDeclaration(ICSSParser.DeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ICSSParser#decleration}.
+	 * Exit a parse tree produced by {@link ICSSParser#declaration}.
 	 * @param ctx the parse tree
 	 */
-	void exitDecleration(ICSSParser.DeclerationContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ICSSParser#toDeclare}.
-	 * @param ctx the parse tree
-	 */
-	void enterToDeclare(ICSSParser.ToDeclareContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ICSSParser#toDeclare}.
-	 * @param ctx the parse tree
-	 */
-	void exitToDeclare(ICSSParser.ToDeclareContext ctx);
+	void exitDeclaration(ICSSParser.DeclarationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ICSSParser#operator}.
 	 * @param ctx the parse tree

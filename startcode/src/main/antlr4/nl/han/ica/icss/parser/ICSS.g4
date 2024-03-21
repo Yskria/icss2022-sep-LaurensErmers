@@ -57,12 +57,12 @@ variableAssignment: variableReference ASSIGNMENT_OPERATOR literal SEMICOLON;
 variableReference: CAPITAL_IDENT;
 
 //style rule
-styleRule: selector OPEN_BRACE decleration+ CLOSE_BRACE;
-decleration: selector COLON (literal | variableReference | expressions)+ SEMICOLON | ifClause;
+styleRule: selector OPEN_BRACE declaration+ CLOSE_BRACE;
+declaration: selector COLON (literal | variableReference | expressions)+ SEMICOLON | ifClause;
 //toDeclare: selector COLON (literal | variableReference | expressions)+ SEMICOLON;
 operator: MUL | PLUS | MIN;
 selector: LOWER_IDENT | ID_IDENT | CLASS_IDENT;
-ifClause: IF BOX_BRACKET_OPEN (literal | variableReference) BOX_BRACKET_CLOSE OPEN_BRACE (decleration | ifClause)+ CLOSE_BRACE elseClause?;
-elseClause: ELSE OPEN_BRACE (decleration | ifClause)+ CLOSE_BRACE;
+ifClause: IF BOX_BRACKET_OPEN (literal | variableReference) BOX_BRACKET_CLOSE OPEN_BRACE (declaration | ifClause)+ CLOSE_BRACE elseClause?;
+elseClause: ELSE OPEN_BRACE (declaration | ifClause)+ CLOSE_BRACE;
 
 expressions: expressions operator expressions | (literal | variableReference) | '('expressions')';

@@ -16,6 +16,30 @@ public interface ICSSVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStylesheet(ICSSParser.StylesheetContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ICSSParser#boolLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolLiteral(ICSSParser.BoolLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ICSSParser#colorLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitColorLiteral(ICSSParser.ColorLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ICSSParser#scalarLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitScalarLiteral(ICSSParser.ScalarLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ICSSParser#percentageLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPercentageLiteral(ICSSParser.PercentageLiteralContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ICSSParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -40,17 +64,11 @@ public interface ICSSVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStyleRule(ICSSParser.StyleRuleContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ICSSParser#decleration}.
+	 * Visit a parse tree produced by {@link ICSSParser#declaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDecleration(ICSSParser.DeclerationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ICSSParser#toDeclare}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitToDeclare(ICSSParser.ToDeclareContext ctx);
+	T visitDeclaration(ICSSParser.DeclarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ICSSParser#operator}.
 	 * @param ctx the parse tree
