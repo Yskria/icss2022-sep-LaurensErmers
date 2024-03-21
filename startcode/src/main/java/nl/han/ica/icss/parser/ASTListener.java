@@ -41,6 +41,31 @@ public class ASTListener extends ICSSBaseListener {
     }
 
     @Override
+    public void enterBoolLiteral(ICSSParser.BoolLiteralContext ctx) {
+        super.enterBoolLiteral(ctx);
+    }
+
+    @Override
+    public void enterColorLiteral(ICSSParser.ColorLiteralContext ctx) {
+        super.enterColorLiteral(ctx);
+    }
+
+    @Override
+    public void enterScalarLiteral(ICSSParser.ScalarLiteralContext ctx) {
+        super.enterScalarLiteral(ctx);
+    }
+
+    @Override
+    public void enterPercentageLiteral(ICSSParser.PercentageLiteralContext ctx) {
+        super.enterPercentageLiteral(ctx);
+    }
+
+    @Override
+    public void enterLiteral(ICSSParser.LiteralContext ctx) {
+        super.enterLiteral(ctx);
+    }
+
+    @Override
     public void enterStyleRule(ICSSParser.StyleRuleContext ctx) {
         ASTNode styleRule = new Stylerule();
         //ast.root.body.add(styleRule);
