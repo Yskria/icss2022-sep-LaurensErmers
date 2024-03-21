@@ -47,22 +47,32 @@ stylesheet: (variableAssignment | styleRule)* | EOF;
 
 //literals
 boolLiteral: TRUE | FALSE;
-colorLiteral: PIXELSIZE | COLOR;
+colorLiteral: COLOR;
+pixelLiteral: PIXELSIZE;
 scalarLiteral: SCALAR;
 percentageLiteral: PERCENTAGE;
-literal: boolLiteral | colorLiteral | percentageLiteral | scalarLiteral ;
+literal: boolLiteral | colorLiteral | percentageLiteral | scalarLiteral | pixelLiteral;
 
-//variables
+
 variableAssignment: variableReference ASSIGNMENT_OPERATOR literal SEMICOLON;
 variableReference: CAPITAL_IDENT;
 
-//style rule
-styleRule: selector OPEN_BRACE declaration+ CLOSE_BRACE;
-declaration: selector COLON (literal | variableReference | expressions)+ SEMICOLON | ifClause;
-//toDeclare: selector COLON (literal | variableReference | expressions)+ SEMICOLON;
-operator: MUL | PLUS | MIN;
-selector: LOWER_IDENT | ID_IDENT | CLASS_IDENT;
+
+styleRule: selector OPEN_BRACE (declaration | ifClause)+ CLOSE_BRACE;
+declaration: propertyName COLON (literal | variableReference | operation)+ SEMICOLON;
+propertyName: LOWER_IDENT;
+
+
+selector: idSelector | classSelector | tagSelector;
+idSelector: ID_IDENT;
+classSelector: CLASS_IDENT;
+tagSelector: LOWER_IDENT;
 ifClause: IF BOX_BRACKET_OPEN (literal | variableReference) BOX_BRACKET_CLOSE OPEN_BRACE (declaration | ifClause)+ CLOSE_BRACE elseClause?;
 elseClause: ELSE OPEN_BRACE (declaration | ifClause)+ CLOSE_BRACE;
 
-expressions: expressions operator expressions | (literal | variableReference) | '('expressions')';
+
+operation: operation multiplyOperation operation|  operation (addOperation | substractOperation) operation  | (literal | variableReference) | '('operation')';
+multiplyOperation: MUL ;
+addOperation: PLUS ;
+substractOperation: MIN ;
+

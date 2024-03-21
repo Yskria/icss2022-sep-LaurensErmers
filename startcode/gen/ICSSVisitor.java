@@ -1,4 +1,4 @@
-// Generated from C:/Users/laure/OneDrive/Bureaublad/icss2022-sep-main/icss2022-sep-LaurensErmers/startcode/src/main/antlr4/nl/han/ica/icss/parser/ICSS.g4 by ANTLR 4.13.1
+// Generated from C:/Users/laure/OneDrive/Documenten/GitHub/icss2022-sep-LaurensErmers/startcode/src/main/antlr4/nl/han/ica/icss/parser/ICSS.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -27,6 +27,12 @@ public interface ICSSVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitColorLiteral(ICSSParser.ColorLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ICSSParser#pixelLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPixelLiteral(ICSSParser.PixelLiteralContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ICSSParser#scalarLiteral}.
 	 * @param ctx the parse tree
@@ -70,17 +76,35 @@ public interface ICSSVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDeclaration(ICSSParser.DeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ICSSParser#operator}.
+	 * Visit a parse tree produced by {@link ICSSParser#propertyName}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOperator(ICSSParser.OperatorContext ctx);
+	T visitPropertyName(ICSSParser.PropertyNameContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ICSSParser#selector}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitSelector(ICSSParser.SelectorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ICSSParser#idSelector}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdSelector(ICSSParser.IdSelectorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ICSSParser#classSelector}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitClassSelector(ICSSParser.ClassSelectorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ICSSParser#tagSelector}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTagSelector(ICSSParser.TagSelectorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ICSSParser#ifClause}.
 	 * @param ctx the parse tree
@@ -94,9 +118,27 @@ public interface ICSSVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitElseClause(ICSSParser.ElseClauseContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ICSSParser#expressions}.
+	 * Visit a parse tree produced by {@link ICSSParser#operation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpressions(ICSSParser.ExpressionsContext ctx);
+	T visitOperation(ICSSParser.OperationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ICSSParser#mOperation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMOperation(ICSSParser.MOperationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ICSSParser#aOperation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAOperation(ICSSParser.AOperationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ICSSParser#sOperation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSOperation(ICSSParser.SOperationContext ctx);
 }
