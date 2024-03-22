@@ -21,7 +21,6 @@ public class ASTListener extends ICSSBaseListener {
 	private final AST ast;
     final public String asterix = "*";
     final public String plusOperator = "+";
-    final public String minus = "-";
 
 	//Use this to keep track of the parent nodes when recursively traversing the ast
 	private IHANStack<ASTNode> currentContainer;
@@ -185,17 +184,16 @@ public class ASTListener extends ICSSBaseListener {
             switch (ctx.getChild(1).getText()) {
                 case asterix:
                     operation = new MultiplyOperation();
-                    currentContainer.push(operation);
                     break;
                 case plusOperator:
                     operation = new AddOperation();
-                    currentContainer.push(operation);
                     break;
-                case minus:
+                default:
                     operation = new SubtractOperation();
-                    currentContainer.push(operation);
                     break;
             }
+            currentContainer.push(operation);
+
         }
     }
 
