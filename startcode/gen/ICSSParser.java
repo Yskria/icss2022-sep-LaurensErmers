@@ -1,4 +1,4 @@
-// Generated from C:/Users/laure/OneDrive/Documenten/GitHub/icss2022-sep-LaurensErmers/startcode/src/main/antlr4/nl/han/ica/icss/parser/ICSS.g4 by ANTLR 4.13.1
+// Generated from C:/Users/laure/OneDrive/Bureaublad/icss2022-sep-main/icss2022-sep-LaurensErmers/startcode/src/main/antlr4/nl/han/ica/icss/parser/ICSS.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -26,14 +26,15 @@ public class ICSSParser extends Parser {
 		RULE_variableAssignment = 7, RULE_variableReference = 8, RULE_styleRule = 9, 
 		RULE_declaration = 10, RULE_propertyName = 11, RULE_selector = 12, RULE_idSelector = 13, 
 		RULE_classSelector = 14, RULE_tagSelector = 15, RULE_ifClause = 16, RULE_elseClause = 17, 
-		RULE_operation = 18, RULE_mOperation = 19, RULE_aOperation = 20, RULE_sOperation = 21;
+		RULE_operation = 18, RULE_multiplyOperation = 19, RULE_addOperation = 20, 
+		RULE_substractOperation = 21;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"stylesheet", "boolLiteral", "colorLiteral", "pixelLiteral", "scalarLiteral", 
 			"percentageLiteral", "literal", "variableAssignment", "variableReference", 
 			"styleRule", "declaration", "propertyName", "selector", "idSelector", 
 			"classSelector", "tagSelector", "ifClause", "elseClause", "operation", 
-			"mOperation", "aOperation", "sOperation"
+			"multiplyOperation", "addOperation", "substractOperation"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -1301,14 +1302,14 @@ public class ICSSParser extends Parser {
 		public OperationContext operation(int i) {
 			return getRuleContext(OperationContext.class,i);
 		}
-		public MOperationContext mOperation() {
-			return getRuleContext(MOperationContext.class,0);
+		public MultiplyOperationContext multiplyOperation() {
+			return getRuleContext(MultiplyOperationContext.class,0);
 		}
-		public AOperationContext aOperation() {
-			return getRuleContext(AOperationContext.class,0);
+		public AddOperationContext addOperation() {
+			return getRuleContext(AddOperationContext.class,0);
 		}
-		public SOperationContext sOperation() {
-			return getRuleContext(SOperationContext.class,0);
+		public SubstractOperationContext substractOperation() {
+			return getRuleContext(SubstractOperationContext.class,0);
 		}
 		public OperationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1412,7 +1413,7 @@ public class ICSSParser extends Parser {
 						setState(151);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
 						setState(152);
-						mOperation();
+						multiplyOperation();
 						setState(153);
 						operation(5);
 						}
@@ -1429,13 +1430,13 @@ public class ICSSParser extends Parser {
 						case PLUS:
 							{
 							setState(156);
-							aOperation();
+							addOperation();
 							}
 							break;
 						case MIN:
 							{
 							setState(157);
-							sOperation();
+							substractOperation();
 							}
 							break;
 						default:
@@ -1466,30 +1467,30 @@ public class ICSSParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class MOperationContext extends ParserRuleContext {
+	public static class MultiplyOperationContext extends ParserRuleContext {
 		public TerminalNode MUL() { return getToken(ICSSParser.MUL, 0); }
-		public MOperationContext(ParserRuleContext parent, int invokingState) {
+		public MultiplyOperationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_mOperation; }
+		@Override public int getRuleIndex() { return RULE_multiplyOperation; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ICSSListener ) ((ICSSListener)listener).enterMOperation(this);
+			if ( listener instanceof ICSSListener ) ((ICSSListener)listener).enterMultiplyOperation(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ICSSListener ) ((ICSSListener)listener).exitMOperation(this);
+			if ( listener instanceof ICSSListener ) ((ICSSListener)listener).exitMultiplyOperation(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ICSSVisitor ) return ((ICSSVisitor<? extends T>)visitor).visitMOperation(this);
+			if ( visitor instanceof ICSSVisitor ) return ((ICSSVisitor<? extends T>)visitor).visitMultiplyOperation(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final MOperationContext mOperation() throws RecognitionException {
-		MOperationContext _localctx = new MOperationContext(_ctx, getState());
-		enterRule(_localctx, 38, RULE_mOperation);
+	public final MultiplyOperationContext multiplyOperation() throws RecognitionException {
+		MultiplyOperationContext _localctx = new MultiplyOperationContext(_ctx, getState());
+		enterRule(_localctx, 38, RULE_multiplyOperation);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -1509,30 +1510,30 @@ public class ICSSParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class AOperationContext extends ParserRuleContext {
+	public static class AddOperationContext extends ParserRuleContext {
 		public TerminalNode PLUS() { return getToken(ICSSParser.PLUS, 0); }
-		public AOperationContext(ParserRuleContext parent, int invokingState) {
+		public AddOperationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_aOperation; }
+		@Override public int getRuleIndex() { return RULE_addOperation; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ICSSListener ) ((ICSSListener)listener).enterAOperation(this);
+			if ( listener instanceof ICSSListener ) ((ICSSListener)listener).enterAddOperation(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ICSSListener ) ((ICSSListener)listener).exitAOperation(this);
+			if ( listener instanceof ICSSListener ) ((ICSSListener)listener).exitAddOperation(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ICSSVisitor ) return ((ICSSVisitor<? extends T>)visitor).visitAOperation(this);
+			if ( visitor instanceof ICSSVisitor ) return ((ICSSVisitor<? extends T>)visitor).visitAddOperation(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final AOperationContext aOperation() throws RecognitionException {
-		AOperationContext _localctx = new AOperationContext(_ctx, getState());
-		enterRule(_localctx, 40, RULE_aOperation);
+	public final AddOperationContext addOperation() throws RecognitionException {
+		AddOperationContext _localctx = new AddOperationContext(_ctx, getState());
+		enterRule(_localctx, 40, RULE_addOperation);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -1552,30 +1553,30 @@ public class ICSSParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class SOperationContext extends ParserRuleContext {
+	public static class SubstractOperationContext extends ParserRuleContext {
 		public TerminalNode MIN() { return getToken(ICSSParser.MIN, 0); }
-		public SOperationContext(ParserRuleContext parent, int invokingState) {
+		public SubstractOperationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_sOperation; }
+		@Override public int getRuleIndex() { return RULE_substractOperation; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ICSSListener ) ((ICSSListener)listener).enterSOperation(this);
+			if ( listener instanceof ICSSListener ) ((ICSSListener)listener).enterSubstractOperation(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ICSSListener ) ((ICSSListener)listener).exitSOperation(this);
+			if ( listener instanceof ICSSListener ) ((ICSSListener)listener).exitSubstractOperation(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ICSSVisitor ) return ((ICSSVisitor<? extends T>)visitor).visitSOperation(this);
+			if ( visitor instanceof ICSSVisitor ) return ((ICSSVisitor<? extends T>)visitor).visitSubstractOperation(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final SOperationContext sOperation() throws RecognitionException {
-		SOperationContext _localctx = new SOperationContext(_ctx, getState());
-		enterRule(_localctx, 42, RULE_sOperation);
+	public final SubstractOperationContext substractOperation() throws RecognitionException {
+		SubstractOperationContext _localctx = new SubstractOperationContext(_ctx, getState());
+		enterRule(_localctx, 42, RULE_substractOperation);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{

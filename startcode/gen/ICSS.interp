@@ -74,9 +74,9 @@ tagSelector
 ifClause
 elseClause
 operation
-mOperation
-aOperation
-sOperation
+multiplyOperation
+addOperation
+substractOperation
 
 
 atn:

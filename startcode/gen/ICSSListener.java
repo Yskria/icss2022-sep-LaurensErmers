@@ -1,4 +1,4 @@
-// Generated from C:/Users/laure/OneDrive/Documenten/GitHub/icss2022-sep-LaurensErmers/startcode/src/main/antlr4/nl/han/ica/icss/parser/ICSS.g4 by ANTLR 4.13.1
+// Generated from C:/Users/laure/OneDrive/Bureaublad/icss2022-sep-main/icss2022-sep-LaurensErmers/startcode/src/main/antlr4/nl/han/ica/icss/parser/ICSS.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -197,33 +197,33 @@ public interface ICSSListener extends ParseTreeListener {
 	 */
 	void exitOperation(ICSSParser.OperationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ICSSParser#mOperation}.
+	 * Enter a parse tree produced by {@link ICSSParser#multiplyOperation}.
 	 * @param ctx the parse tree
 	 */
-	void enterMOperation(ICSSParser.MOperationContext ctx);
+	void enterMultiplyOperation(ICSSParser.MultiplyOperationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ICSSParser#mOperation}.
+	 * Exit a parse tree produced by {@link ICSSParser#multiplyOperation}.
 	 * @param ctx the parse tree
 	 */
-	void exitMOperation(ICSSParser.MOperationContext ctx);
+	void exitMultiplyOperation(ICSSParser.MultiplyOperationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ICSSParser#aOperation}.
+	 * Enter a parse tree produced by {@link ICSSParser#addOperation}.
 	 * @param ctx the parse tree
 	 */
-	void enterAOperation(ICSSParser.AOperationContext ctx);
+	void enterAddOperation(ICSSParser.AddOperationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ICSSParser#aOperation}.
+	 * Exit a parse tree produced by {@link ICSSParser#addOperation}.
 	 * @param ctx the parse tree
 	 */
-	void exitAOperation(ICSSParser.AOperationContext ctx);
+	void exitAddOperation(ICSSParser.AddOperationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ICSSParser#sOperation}.
+	 * Enter a parse tree produced by {@link ICSSParser#substractOperation}.
 	 * @param ctx the parse tree
 	 */
-	void enterSOperation(ICSSParser.SOperationContext ctx);
+	void enterSubstractOperation(ICSSParser.SubstractOperationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ICSSParser#sOperation}.
+	 * Exit a parse tree produced by {@link ICSSParser#substractOperation}.
 	 * @param ctx the parse tree
 	 */
-	void exitSOperation(ICSSParser.SOperationContext ctx);
+	void exitSubstractOperation(ICSSParser.SubstractOperationContext ctx);
 }

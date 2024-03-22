@@ -1,4 +1,4 @@
-// Generated from C:/Users/laure/OneDrive/Documenten/GitHub/icss2022-sep-LaurensErmers/startcode/src/main/antlr4/nl/han/ica/icss/parser/ICSS.g4 by ANTLR 4.13.1
+// Generated from C:/Users/laure/OneDrive/Bureaublad/icss2022-sep-main/icss2022-sep-LaurensErmers/startcode/src/main/antlr4/nl/han/ica/icss/parser/ICSS.g4 by ANTLR 4.13.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -244,37 +244,37 @@ public class ICSSBaseListener implements ICSSListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMOperation(ICSSParser.MOperationContext ctx) { }
+	@Override public void enterMultiplyOperation(ICSSParser.MultiplyOperationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMOperation(ICSSParser.MOperationContext ctx) { }
+	@Override public void exitMultiplyOperation(ICSSParser.MultiplyOperationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAOperation(ICSSParser.AOperationContext ctx) { }
+	@Override public void enterAddOperation(ICSSParser.AddOperationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAOperation(ICSSParser.AOperationContext ctx) { }
+	@Override public void exitAddOperation(ICSSParser.AddOperationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSOperation(ICSSParser.SOperationContext ctx) { }
+	@Override public void enterSubstractOperation(ICSSParser.SubstractOperationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSOperation(ICSSParser.SOperationContext ctx) { }
+	@Override public void exitSubstractOperation(ICSSParser.SubstractOperationContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

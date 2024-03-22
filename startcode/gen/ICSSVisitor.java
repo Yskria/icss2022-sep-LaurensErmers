@@ -1,4 +1,4 @@
-// Generated from C:/Users/laure/OneDrive/Documenten/GitHub/icss2022-sep-LaurensErmers/startcode/src/main/antlr4/nl/han/ica/icss/parser/ICSS.g4 by ANTLR 4.13.1
+// Generated from C:/Users/laure/OneDrive/Bureaublad/icss2022-sep-main/icss2022-sep-LaurensErmers/startcode/src/main/antlr4/nl/han/ica/icss/parser/ICSS.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -124,21 +124,21 @@ public interface ICSSVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOperation(ICSSParser.OperationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ICSSParser#mOperation}.
+	 * Visit a parse tree produced by {@link ICSSParser#multiplyOperation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMOperation(ICSSParser.MOperationContext ctx);
+	T visitMultiplyOperation(ICSSParser.MultiplyOperationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ICSSParser#aOperation}.
+	 * Visit a parse tree produced by {@link ICSSParser#addOperation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAOperation(ICSSParser.AOperationContext ctx);
+	T visitAddOperation(ICSSParser.AddOperationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ICSSParser#sOperation}.
+	 * Visit a parse tree produced by {@link ICSSParser#substractOperation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSOperation(ICSSParser.SOperationContext ctx);
+	T visitSubstractOperation(ICSSParser.SubstractOperationContext ctx);
 }
