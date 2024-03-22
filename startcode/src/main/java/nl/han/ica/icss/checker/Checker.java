@@ -18,6 +18,20 @@ public class Checker {
 
     public void checkStylesheet(ASTNode astNode){
         Stylesheet stylesheet = (Stylesheet) astNode;
+
     }
-    
+
+    public void checkStylerule(ASTNode astNode){
+
+    }
+
+    public void checkVariableAssignment(){
+
+    }
+
+    public void checkDeclaration(){
+
+    }
+
+
 }
