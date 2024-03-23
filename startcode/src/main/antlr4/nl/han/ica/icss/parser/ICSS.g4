@@ -59,7 +59,7 @@ variableReference: CAPITAL_IDENT;
 
 
 styleRule: selector OPEN_BRACE (declaration | ifClause)+ CLOSE_BRACE;
-declaration: propertyName COLON (literal | variableReference | operation)+ SEMICOLON;
+declaration: propertyName COLON (literal | operation)+ SEMICOLON;
 propertyName: LOWER_IDENT;
 
 
@@ -71,8 +71,8 @@ ifClause: IF BOX_BRACKET_OPEN (literal | variableReference) BOX_BRACKET_CLOSE OP
 elseClause: ELSE OPEN_BRACE (declaration | ifClause)+ CLOSE_BRACE;
 
 
-operation: operation multiplyOperation operation|  operation (addOperation | substractOperation) operation  | (literal | variableReference) | '('operation')';
-multiplyOperation: MUL ;
-addOperation: PLUS ;
-substractOperation: MIN ;
+operation: operation multiplyOperation operation |  operation (addOperation | substractOperation) operation  | (literal | variableReference) | '('operation')';
+multiplyOperation: MUL;
+addOperation: PLUS;
+substractOperation: MIN;
 
