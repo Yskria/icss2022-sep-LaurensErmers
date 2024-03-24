@@ -9,8 +9,8 @@ public class HANLinkedList<ASTNode> implements IHANLinkedList<ASTNode>{
         if(beginNode == null){
             beginNode = new ListNode<>((ASTNode) value);
         } else {
-            ListNode<ASTNode> newTreeNode = new ListNode<>();
-            newTreeNode.value = value;
+            ListNode<ASTNode> newTreeNode = new ListNode<>(value);
+            newTreeNode.nextValue = beginNode;
             beginNode = newTreeNode;
         }
     }
@@ -49,17 +49,24 @@ public class HANLinkedList<ASTNode> implements IHANLinkedList<ASTNode>{
 
     @Override
     public ASTNode get(int pos) {
-        ListNode<ASTNode> llitr = beginNode.nextValue;
+        if(pos > getSize()){
+            throw new RuntimeException("out of bounds");
+        }
+        int count = 0;
+        ListNode<ASTNode> llitr = beginNode;
 
-        while (llitr != null && !llitr.value.equals(pos)){
+        while (llitr != null && count != pos){
             llitr = llitr.nextValue;
+            count++;
         }
         return llitr.value;
     }
 
     @Override
     public void removeFirst() {
-        beginNode = beginNode.nextValue;
+        if (beginNode != null) {
+            beginNode = beginNode.nextValue;
+        }
     }
 
     @Override
@@ -69,7 +76,12 @@ public class HANLinkedList<ASTNode> implements IHANLinkedList<ASTNode>{
 
     @Override
     public int getSize() {
-        return 0;
-        //??????
+        ListNode<ASTNode> current = beginNode;
+        int size = 0;
+        while (current != null) {
+            size++;
+            current = current.nextValue;
+        }
+        return size;
     }
 }
