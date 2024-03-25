@@ -1,5 +1,6 @@
 package nl.han.ica.icss.checker;
 
+import com.sun.source.tree.ConditionalExpressionTree;
 import nl.han.ica.datastructures.HANLinkedList;
 import nl.han.ica.datastructures.IHANLinkedList;
 import nl.han.ica.icss.ast.*;
@@ -49,7 +50,7 @@ public class Checker {
 
         for (ASTNode node : stylerule.body) {
             if (node instanceof Declaration) {
-                checkDeclaration((Declaration) node);
+                checkDeclaration(node);
             }
             if (node instanceof IfClause) {
                 checkIfClause(node);
@@ -61,58 +62,48 @@ public class Checker {
         variableTypes.removeFirst();
     }
 
-    public void checkDeclaration(Declaration declaration) {
-        // Declaration declaration = (Declaration) declaration;
+    public void checkDeclaration(ASTNode astNode) {
+        Declaration declaration = (Declaration) astNode;
         ExpressionType expressionType = this.checkExpression(declaration.expression);
-        switch(declaration.property.name)
-    {
-        case "color":
-            if (expressionType != expressionType.COLOR) {
-                declaration.setError("stop-kleur");
-            }
-            break;
-        case "background-color":
-            if (expressionType != expressionType.COLOR) {
-                declaration.setError("STOP-KLEUR");
-            }
-            break;
-        case "height":
-            if (expressionType != ExpressionType.PIXEL && expressionType != ExpressionType.PERCENTAGE) {
-                declaration.setError("STOP-HOOGTE");
-            }
-            break;
-        case "width":
-            if (expressionType != ExpressionType.PIXEL && expressionType != ExpressionType.PERCENTAGE) {
-                declaration.setError("STOP-BREEDTE");
-                System.out.println(declaration.expression);
-            }
-            break;
-        default:
-            declaration.setError("STOP-DEFAULT");
-            break;
+        switch(declaration.property.name) {
+            case "color":
+            case "background-color":
+                if (expressionType != ExpressionType.COLOR) {
+                    declaration.setError("STOP-KLEUR");
+                }
+                break;
+            case "height":
+            case "width":
+                if (expressionType != ExpressionType.PIXEL && expressionType != ExpressionType.PERCENTAGE) {
+                    System.out.println(expressionType);
+                    System.out.println("STOP-BREEDTE");
+                    declaration.setError("STOP-BREEDTE");
+                }
+                break;
+            default:
+                declaration.setError("STOP-DEFAULT");
+                break;
         }
     }
-
 
     public ExpressionType checkExpression(ASTNode expressionNode) {
         if (expressionNode instanceof VariableReference) {
             return checkVariableReference((VariableReference) expressionNode);
-            }else if(expressionNode instanceof Operation){
-            System.out.println(expressionNode);
-                return checkOperation(expressionNode);
-            }else if (expressionNode instanceof PercentageLiteral) {
-                return ExpressionType.PERCENTAGE;
-            } else if (expressionNode instanceof PixelLiteral) {
-                return ExpressionType.PIXEL;
-            } else if (expressionNode instanceof ColorLiteral) {
-                return ExpressionType.COLOR;
-            } else if (expressionNode instanceof ScalarLiteral) {
-                return ExpressionType.SCALAR;
-            } else if (expressionNode instanceof BoolLiteral) {
-                return ExpressionType.BOOL;
-            }
-            return ExpressionType.UNDEFINED;
+        }else if(expressionNode instanceof Operation){
+            return checkOperation((Operation) expressionNode);
+        }else if (expressionNode instanceof PercentageLiteral) {
+            return ExpressionType.PERCENTAGE;
+        } else if (expressionNode instanceof PixelLiteral) {
+            return ExpressionType.PIXEL;
+        } else if (expressionNode instanceof ColorLiteral) {
+            return ExpressionType.COLOR;
+        } else if (expressionNode instanceof ScalarLiteral) {
+            return ExpressionType.SCALAR;
+        } else if (expressionNode instanceof BoolLiteral) {
+            return ExpressionType.BOOL;
         }
+        return ExpressionType.UNDEFINED;
+    }
 
     public void checkVariableAssignment(ASTNode astNode){
         ExpressionType expressionType = checkExpression(((VariableAssignment) astNode).expression);
@@ -128,62 +119,97 @@ public class Checker {
             }
         }
         if(expression == ExpressionType.UNDEFINED){
+            System.out.println("niet gedefinieerd");
             astNode.setError("niet gedefinieerd");
         }
         return expression;
     }
 
-    public ExpressionType checkOperation(ASTNode astNode){
-        if (astNode instanceof MultiplyOperation){
-            ExpressionType left = getOperation(((MultiplyOperation)astNode).lhs);
-            ExpressionType right = getOperation(((MultiplyOperation)astNode).rhs);
-            if(left != ExpressionType.SCALAR && right != ExpressionType.SCALAR){
-                astNode.setError("missing scalar");
-            }
-            return ExpressionType.UNDEFINED;
-        }
-        if (astNode instanceof AddOperation || astNode instanceof SubtractOperation) {
-            if (getOperation(((AddOperation) astNode).lhs) != getOperation(((AddOperation) astNode).rhs)) {
-                System.out.println("left:" + ((AddOperation) astNode).lhs);
-                System.out.println("right:" + ((AddOperation) astNode).rhs);
-                astNode.setError("You can't mix and match");
-            }
-            return ExpressionType.UNDEFINED;
-        }
-        if (astNode instanceof Operation) {
-            for (ASTNode operationKind : astNode.getChildren()){
-                if (operationKind instanceof ColorLiteral){
-                    astNode.setError("Colour can not be used in an operation");
-                }
-            }
-        }
-        return getOperation(astNode);
-    }
+    public ExpressionType checkOperation(Operation operation){
+        ExpressionType left;
+        ExpressionType right;
 
-    public ExpressionType getOperation(ASTNode astNode){
-        ExpressionType expressionType = ExpressionType.UNDEFINED;
-        if(astNode instanceof Operation) {
-            for (ASTNode operationKind : astNode.getChildren()) {
-                if (operationKind instanceof Literal) {
-                    expressionType = checkExpression(operationKind);
-                    System.out.println(expressionType);
-                } else if (operationKind instanceof VariableReference) {
-                    expressionType = checkVariableReference((VariableReference) operationKind);
-                    System.out.println(expressionType);
-                }
+        if(operation.lhs instanceof Operation){
+            left = checkOperation((Operation) operation.lhs);
+        }   else if(operation.lhs instanceof VariableReference){
+            left = checkVariableReference((VariableReference)operation.lhs);
+        } else {
+            left = checkExpression(operation.lhs);
+        }
+        if(operation.rhs instanceof Operation){
+            right = checkOperation((Operation) operation.rhs);
+        }   else if(operation.rhs instanceof VariableReference){
+            right = checkVariableReference((VariableReference)operation.rhs);
+        } else {
+            right = checkExpression(operation.rhs);
+        }
+        if(left == ExpressionType.COLOR || right == ExpressionType.COLOR){
+            System.out.println("colours are not allowed");
+            operation.setError("colours are not allowed");
+            return ExpressionType.UNDEFINED;
+        }
+        if(operation instanceof AddOperation || operation instanceof SubtractOperation){
+            if(left != right){
+                System.out.println("You can't mix and match");
+                operation.setError("You can't mix and match");
+                System.out.println(left);
+                System.out.println(right);
+                return ExpressionType.UNDEFINED;
+            }
+            return left;
+        }else if(operation instanceof MultiplyOperation){
+            if(left != ExpressionType.SCALAR && right != ExpressionType.SCALAR){
+                operation.setError("missing scalar");
+                return ExpressionType.UNDEFINED;
+            }
+            if(left != ExpressionType.SCALAR){
+                return left;
+            } else {
+                return right;
             }
         }
-        return expressionType;
+        return ExpressionType.UNDEFINED;
     }
 
     public void checkIfClause(ASTNode astNode){
-        System.out.println("ifClauseChecked");
-        //check of de if-clause wel bool is
-        //check ...
-        //if elseclause bestaat, check else clause
+        IfClause ifClause = (IfClause) astNode;
+        variableTypes.addFirst(new HashMap<String, ExpressionType>());
+        if(astNode instanceof IfClause){
+            ExpressionType expressionType = checkExpression(((IfClause) astNode).getConditionalExpression());
+                if(expressionType != ExpressionType.BOOL){
+                    astNode.setError("expression has to be a BOOOOOooooOoooOlian");
+                }
+        }
+        for (ASTNode node : ifClause.body) {
+            if (node instanceof Declaration) {
+                checkDeclaration(node);
+            }
+            if (node instanceof IfClause) {
+                checkIfClause(node);
+            }
+            if (node instanceof VariableAssignment) {
+                checkVariableAssignment(node);
+            }
+        }
+        variableTypes.removeFirst();
+        if(ifClause.elseClause != null){
+            checkElseClause(ifClause.elseClause);
+        }
     }
-
-    public void checkElseClause(ASTNode astNode){
-        //check stylerule
+    
+    public void checkElseClause(ElseClause elseClause){
+        variableTypes.addFirst(new HashMap<String, ExpressionType>());
+        for (ASTNode node : elseClause.body) {
+            if (node instanceof Declaration) {
+                checkDeclaration(node);
+            }
+            if (node instanceof IfClause) {
+                checkIfClause(node);
+            }
+            if (node instanceof VariableAssignment) {
+                checkVariableAssignment(node);
+            }
+        }
+        variableTypes.removeFirst();
     }
 }

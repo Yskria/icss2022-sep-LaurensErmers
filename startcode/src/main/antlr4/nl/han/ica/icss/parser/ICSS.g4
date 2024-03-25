@@ -71,7 +71,7 @@ ifClause: IF BOX_BRACKET_OPEN (literal | variableReference) BOX_BRACKET_CLOSE OP
 elseClause: ELSE OPEN_BRACE (declaration | ifClause)+ CLOSE_BRACE;
 
 
-operation: operation multiplyOperation operation |  operation (addOperation | substractOperation) operation  | (literal | variableReference) | '('operation')';
+operation: operation (multiplyOperation) operation |  operation (addOperation | substractOperation) operation  | (literal | variableReference) | '('operation')';
 multiplyOperation: MUL;
 addOperation: PLUS;
 substractOperation: MIN;
