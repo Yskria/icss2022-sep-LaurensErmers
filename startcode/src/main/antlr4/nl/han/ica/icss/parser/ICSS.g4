@@ -68,7 +68,7 @@ idSelector: ID_IDENT;
 classSelector: CLASS_IDENT;
 tagSelector: LOWER_IDENT;
 ifClause: IF BOX_BRACKET_OPEN (literal | variableReference) BOX_BRACKET_CLOSE OPEN_BRACE (declaration | ifClause)+ CLOSE_BRACE elseClause?;
-elseClause: ELSE OPEN_BRACE (declaration | ifClause)+ CLOSE_BRACE;
+elseClause: (ELSE OPEN_BRACE (declaration | ifClause)+ CLOSE_BRACE) | variableAssignment* ((ELSE ifClause));
 
 
 operation: operation (multiplyOperation) operation |  operation (addOperation | substractOperation) operation  | (literal | variableReference) | '('operation')';

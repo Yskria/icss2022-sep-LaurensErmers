@@ -1,6 +1,5 @@
 package nl.han.ica.icss.checker;
 
-import com.sun.source.tree.ConditionalExpressionTree;
 import nl.han.ica.datastructures.HANLinkedList;
 import nl.han.ica.datastructures.IHANLinkedList;
 import nl.han.ica.icss.ast.*;
@@ -10,7 +9,6 @@ import nl.han.ica.icss.ast.operations.MultiplyOperation;
 import nl.han.ica.icss.ast.operations.SubtractOperation;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
-import java.beans.Expression;
 import java.util.HashMap;
 
 public class Checker {
@@ -21,10 +19,12 @@ public class Checker {
         this.variableTypes = new HANLinkedList<>();
     }
 
+    //Add stylesheet to AST root to start the AST tree
     public void check(AST ast) {
         this.checkStylesheet(ast.root);
     }
 
+    //Stylesheet checks VariableAssignment or StyleRule
     public void checkStylesheet(ASTNode astNode) {
         Stylesheet stylesheet = (Stylesheet) astNode;
 
@@ -32,17 +32,16 @@ public class Checker {
 
         for (ASTNode child : stylesheet.getChildren()) {
             if (child instanceof VariableAssignment) {
-                // System.out.println("Variable");
                 checkVariableAssignment(child);
             }
             if (child instanceof Stylerule) {
-                //System.out.println("Style");
                 checkStylerule(child);
             }
         }
         variableTypes.removeFirst();
     }
 
+    //Checks the contents of a stylerule; this can be Declaration, IfClause or VariableAssignment
     public void checkStylerule(ASTNode astNode) {
         Stylerule stylerule = (Stylerule) astNode;
 
@@ -62,6 +61,7 @@ public class Checker {
         variableTypes.removeFirst();
     }
 
+    //Checks if the to be declared value is of the right expression
     public void checkDeclaration(ASTNode astNode) {
         Declaration declaration = (Declaration) astNode;
         ExpressionType expressionType = this.checkExpression(declaration.expression);
@@ -86,6 +86,7 @@ public class Checker {
         }
     }
 
+    //returns the ExpressionType of an expressionNode
     public ExpressionType checkExpression(ASTNode expressionNode) {
         if (expressionNode instanceof VariableReference) {
             return checkVariableReference((VariableReference) expressionNode);
@@ -105,11 +106,13 @@ public class Checker {
         return ExpressionType.UNDEFINED;
     }
 
+    //Adds an assigned variable to the Hashmap
     public void checkVariableAssignment(ASTNode astNode){
         ExpressionType expressionType = checkExpression(((VariableAssignment) astNode).expression);
         variableTypes.getFirst().put((((VariableAssignment) astNode).name.name), expressionType);
     }
 
+    //Checks the hashmap and returns the reference of a given variable equal to containsKey
     public ExpressionType checkVariableReference(VariableReference astNode) {
         ExpressionType expression = ExpressionType.UNDEFINED;
         for (int i = 0; i < variableTypes.getSize(); i++) {
@@ -119,12 +122,12 @@ public class Checker {
             }
         }
         if(expression == ExpressionType.UNDEFINED){
-            System.out.println("niet gedefinieerd");
             astNode.setError("niet gedefinieerd");
         }
         return expression;
     }
 
+    //Checks if the operation is a valid operation
     public ExpressionType checkOperation(Operation operation){
         ExpressionType left;
         ExpressionType right;
@@ -171,6 +174,7 @@ public class Checker {
         return ExpressionType.UNDEFINED;
     }
 
+    //Checks the expression of an ifClause and the body of an ifClause. If there's an elseClause, run checkElseClause()
     public void checkIfClause(ASTNode astNode){
         IfClause ifClause = (IfClause) astNode;
         variableTypes.addFirst(new HashMap<String, ExpressionType>());
@@ -196,7 +200,8 @@ public class Checker {
             checkElseClause(ifClause.elseClause);
         }
     }
-    
+
+    //Checks the body of an elseClause
     public void checkElseClause(ElseClause elseClause){
         variableTypes.addFirst(new HashMap<String, ExpressionType>());
         for (ASTNode node : elseClause.body) {
