@@ -17,12 +17,10 @@ import nl.han.ica.icss.ast.selectors.TagSelector;
  */
 public class ASTListener extends ICSSBaseListener {
 	
-	//Accumulator attributes:
 	private final AST ast;
     final public String asterix = "*";
     final public String plusOperator = "+";
 
-	//Use this to keep track of the parent nodes when recursively traversing the ast
 	private IHANStack<ASTNode> currentContainer;
 
 	public ASTListener() {
