@@ -58,8 +58,8 @@ variableAssignment: variableReference ASSIGNMENT_OPERATOR literal SEMICOLON;
 variableReference: CAPITAL_IDENT;
 
 
-styleRule: selector OPEN_BRACE (declaration | ifClause | variableAssignment)+ CLOSE_BRACE;
-declaration: propertyName COLON (literal | operation)+ SEMICOLON;
+styleRule: selector OPEN_BRACE (variableAssignment | ifClause | declaration)+ CLOSE_BRACE;
+declaration: propertyName COLON (variableReference | literal | operation) SEMICOLON;
 propertyName: LOWER_IDENT;
 
 
@@ -75,4 +75,3 @@ operation: operation (multiplyOperation) operation |  operation (addOperation | 
 multiplyOperation: MUL;
 addOperation: PLUS;
 substractOperation: MIN;
-
